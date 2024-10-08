@@ -13,33 +13,52 @@ class ArticleController extends Controller
     
     public function index(Request $request)
 {
-    $query = Article::query();
+    // $query = Article::query();
 
-    // Check if an indicator filter is applied
-    if ($request->has('indicator') && $request->indicator != '') {
-        $query->where('indicator_01', $request->indicator);
-    }
+    // // Check if an indicator filter is applied
+    // if ($request->has('indicator') && $request->indicator != '') {
+    //     $query->where('indicator_01', $request->indicator);
+    // }
 
-    $articls = $query->get();
+    // $articls = $query->get();
 
-    // Fetch unique indicators for the dropdown
-    $uniqueIndicators = Article::select('indicator_01')->distinct()->pluck('indicator_01');
+    // // Fetch unique indicators for the dropdown
+    // $uniqueIndicators = Article::select('indicator_01')->distinct()->pluck('indicator_01');
 
-    return view('article.index', compact('articls', 'uniqueIndicators'));
+    // return view('article.index', compact('articls', 'uniqueIndicators'));
+    return Article::all();
 }
 
 
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request)
+    public function store(Request $request)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'ref' => 'required|string|max:255',
+            'description' => 'required|string',
+            'prix_vent' => 'required|numeric',
+            'prix_route' => 'required|numeric',
+            'quantite' => 'required|integer',
+            'categorie' => 'required|string',
+            'sous_categorie' => 'required|string',
+            'indicator_01' => 'required|string',
+            'indicator_02' => 'required|string',
+            'indicator_03' => 'required|string',
+        ]);
+
+        // Create a new article
+        Article::create($request->all());
+
+        // Redirect after successful creation
+        return redirect()->route('articles.index')->with('success', 'Article created successfully!');
     }
 
     /**

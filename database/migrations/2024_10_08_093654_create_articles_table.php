@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('ref')->unique();
             $table->string('description');
             $table->decimal('prix_vent', 8, 2);
-            $table->decimal('prix_de_mout', 8, 2);
+            $table->decimal('prix_route', 8, 2);
             $table->integer('quantite');
             $table->string('categorie');
             $table->string('sous_categorie')->nullable();

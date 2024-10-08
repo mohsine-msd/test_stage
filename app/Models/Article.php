@@ -9,7 +9,7 @@ class Article extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'ref', 'description', 'prix_vent', 'prix_de_mout', 'quantite', 'categorie', 'sous_categorie', 'indicator_01', 'indicator_02', 'indicator_03'
+        'ref', 'description', 'prix_vent', 'prix_route', 'quantite', 'categorie', 'sous_categorie', 'indicator_01', 'indicator_02', 'indicator_03'
     ];
 
     public function ventes(){

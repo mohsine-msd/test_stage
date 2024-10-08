@@ -33,7 +33,6 @@ public function buy(Request $request, Article $article)
         'indicator_01' => $article->indicator_01,
     ]);
 
-    // Reduce the quantity in the articles table
     $article->decrement('quantite', $request->input('quantite'));
 
     return redirect()->route('articles.index')->with('success', 'Vente enregistrée avec succès.');
@@ -41,7 +40,7 @@ public function buy(Request $request, Article $article)
 
     public function index()
     {
-        //
+        return Vente::all();
     }
     /**
      * Show the form for creating a new resource.
